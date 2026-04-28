@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Subacción - Sistema Darwin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔽 Gestión de Subacciones</h1>
+            <p>Crear nueva subacción en el sistema</p>
+        </div>
+        <div class="nav">
+            <a href="/">🏠 Inicio</a>
+            <a href="/acciones">📌 Acciones</a>
+            <a href="/accion_especifica">🎯 Acciones Específicas</a>
+            <a href="/subaccion">🔽 Subacciones</a>
+            <a href="/actividad">⚡ Actividades</a>
+            <a href="/tipo_agente">👤 Tipos de Agente</a>
+            <a href="/tipo_transporte">🚛 Transporte</a>
+            <a href="/zona_provincia">🗺️ Provincias</a>
+            <a href="/zona_distrito">🏘️ Distritos</a>
+            <a href="/registro">📋 Registros</a>
+        </div>
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    ➕ Nueva Subacción
+                </div>
+                
+                <div class="form-container">
+                    <form method="POST" action="/subaccion">
+                        <div class="form-group">
+                            <label>Nombre Abreviado:</label>
+                            <input type="text" name="NOMBRE_ABREVIADO" placeholder="Ej: SUB-001" required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Subacción:</label>
+                            <input type="text" name="SUB_ACCION_ESP" placeholder="Nombre de la subacción" required />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Concatenado:</label>
+                            <input type="text" name="CONCAT" placeholder="Valor concatenado" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Código:</label>
+                            <input type="text" name="CODIGO_S_A_E" placeholder="Código identificador" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Acción Específica:</label>
+                            <select name="ID_AE" required>
+                                <option value="">-- Seleccionar Acción Específica --</option>
+                                <!-- Opciones insertadas por Node.js -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-success">💾 Guardar Subacción</button>
+                            <a href="/subaccion" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

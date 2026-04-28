@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Transporte - Sistema Darwin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚛 Gestión de Tipos de Transporte</h1>
+            <p>Listado completo de tipos de transporte del sistema</p>
+        </div>
+        <div class="nav">
+            <a href="/">🏠 Inicio</a>
+            <a href="/acciones">📌 Acciones</a>
+            <a href="/accion_especifica">🎯 Acciones Específicas</a>
+            <a href="/subaccion">🔽 Subacciones</a>
+            <a href="/actividad">⚡ Actividades</a>
+            <a href="/tipo_agente">👤 Tipos de Agente</a>
+            <a href="/tipo_transporte">🚛 Transporte</a>
+            <a href="/zona_provincia">🗺️ Provincias</a>
+            <a href="/zona_distrito">🏘️ Distritos</a>
+            <a href="/registro">📋 Registros</a>
+        </div>
+        <div class="content">
+            <div class="card">
+                <div class="card-header">
+                    📋 Listado de Tipos de Transporte
+                    <a href="/tipo_transporte/nuevo" style="float: right;" class="btn btn-success">➕ Nuevo Tipo</a>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="tabla-datos">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Transporte</th>
+                                <th style="width: 150px;">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabla-datos">
+                            <!-- Los datos serán insertados por Node.js -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="mt-20">
+                    <a href="/" class="btn btn-secondary">← Volver al Inicio</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
