@@ -1,0 +1,116 @@
+<div class="card" style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px; border-top: 4px solid #ffc107;">
+    <h2 style="color: #856404; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+        <i class="fas fa-user-tie"></i> <span id="form-title-ta">Nuevo Tipo de Agente</span>
+    </h2>
+    
+    <form id="formTipoAgente" style="margin-top: 20px;">
+        <input type="hidden" id="edit_id_ta" value="">
+        
+        <div style="margin-bottom: 15px;">
+            <label style="font-weight: 600; font-size: 0.9rem;">Nombre del Tipo de Agente <span style="color: red;">*</span></label>
+            <input type="text" id="NOMBRE_TA" required style="width: 100%; max-width: 450px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-top: 5px; display: block;" placeholder="Ej: Especialista de Obra">
+        </div>
+
+        <div style="margin-top: 20px; display: flex; gap: 10px;">
+            <button type="submit" id="btnGuardarTA" style="background: #ffc107; color: #212529; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                <i class="fas fa-save"></i> <span id="btn-text-ta">Guardar Registro</span>
+            </button>
+            <button type="button" onclick="cancelarEdicionTA()" id="btnCancelarEditTA" style="display: none; background: #6c757d; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+
+<div class="card" style="background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+    <h3 style="margin-top: 0;"><i class="fas fa-list-ul"></i> Tipos de Agentes Registrados</h3>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; text-align: left;">
+        <thead>
+            <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                <th style="padding: 12px; width: 80px;">ID</th>
+                <th style="padding: 12px;">Nombre del Agente</th>
+                <th style="padding: 12px; text-align: center; width: 150px;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tbodyAgentes"></tbody>
+    </table>
+</div>
+
+<script>
+    window.inicializarModulo = function(vistaID) {
+        if (vistaID !== 'tipo_agente') return;
+
+        const form = document.getElementById('formTipoAgente');
+        const nuevoForm = form.cloneNode(true);
+        form.parentNode.replaceChild(nuevoForm, form);
+
+        cargarTablaAgentes();
+
+        nuevoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const idEdit = document.getElementById('edit_id_ta').value;
+            const nombre = document.getElementById('NOMBRE_TA').value;
+            
+            const endpoint = idEdit ? `${Endpoints.RECURSO.AGENTE}/${idEdit}` : Endpoints.RECURSO.AGENTE;
+            const metodo = idEdit ? 'PUT' : 'POST';
+
+            const respuesta = await App.peticionAPI(endpoint, metodo, { NOMBRE_TA: nombre });
+
+            if (respuesta) {
+                App.mostrarAlerta(idEdit ? 'Actualizado correctamente' : 'Guardado correctamente', 'success');
+                cancelarEdicionTA();
+                cargarTablaAgentes();
+            }
+        });
+    }
+
+    async function cargarTablaAgentes() {
+        const tbody = document.getElementById('tbodyAgentes');
+        tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding:20px;"><i class="fas fa-sync fa-spin"></i></td></tr>';
+
+        const datos = await App.peticionAPI(Endpoints.RECURSO.AGENTE);
+        if (!datos) return;
+
+        tbody.innerHTML = datos.map(a => `
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding:12px;">${a.ID_TA}</td>
+                <td style="padding:12px; font-weight:500;">${a.NOMBRE_TA}</td>
+                <td style="padding:12px; text-align:center; display:flex; gap:10px; justify-content:center;">
+                    <button onclick="prepararEdicionTA(${a.ID_TA}, '${a.NOMBRE_TA}')" style="background:#ffc107; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button onclick="eliminarAgente(${a.ID_TA})" style="background:#dc3545; color:white; border:none; padding:6px 10px; border-radius:4px; cursor:pointer;" title="Eliminar">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </td>
+            </tr>
+        `).join('') || '<tr><td colspan="3" style="text-align:center; padding:20px;">No hay registros</td></tr>';
+    }
+
+    window.prepararEdicionTA = function(id, nombre) {
+        document.getElementById('edit_id_ta').value = id;
+        document.getElementById('NOMBRE_TA').value = nombre;
+        document.getElementById('form-title-ta').innerText = 'Editando Tipo de Agente';
+        document.getElementById('btn-text-ta').innerText = 'Actualizar Datos';
+        document.getElementById('btnCancelarEditTA').style.display = 'block';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.cancelarEdicionTA = function() {
+        document.getElementById('edit_id_ta').value = '';
+        document.getElementById('formTipoAgente').reset();
+        document.getElementById('form-title-ta').innerText = 'Nuevo Tipo de Agente';
+        document.getElementById('btn-text-ta').innerText = 'Guardar Registro';
+        document.getElementById('btnCancelarEditTA').style.display = 'none';
+    }
+
+    window.eliminarAgente = async function(id) {
+        if (!confirm('¿Estás seguro de eliminar este registro?')) return;
+        
+        const respuesta = await App.peticionAPI(`${Endpoints.RECURSO.AGENTE}/${id}`, 'DELETE');
+        if (respuesta) {
+            App.mostrarAlerta('Eliminado con éxito', 'success');
+            cargarTablaAgentes();
+        }
+    }
+</script>

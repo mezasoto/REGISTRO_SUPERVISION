@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso - Sistema SAE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .auth-container {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+        width: 420px;
+        max-width: 92%;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #e5e7eb;
+    }
+
+    .auth-header {
+        background: linear-gradient(135deg, #1e3a8a, #0f172a);
+        color: white;
+        padding: 32px 20px;
+        text-align: center;
+    }
+
+    .auth-header h1 {
+        font-size: 1.4rem;
+        margin-top: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .auth-body {
+        padding: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: #334155;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 1rem;
+        background: #f8fafc;
+        transition: 0.2s;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #1e3a8a;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #2563eb, #1e3a8a);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Registro botón */
+    .btn[style] {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+    }
+
+    .btn[style]:hover {
+        box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+    }
+
+    .toggle-link {
+        display: block;
+        text-align: center;
+        margin-top: 18px;
+        font-size: 0.9rem;
+        color: #1e3a8a;
+        cursor: pointer;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .toggle-link:hover {
+        text-decoration: underline;
+    }
+
+    #form-registro {
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <i class="fas fa-shield-alt fa-3x"></i>
+            <h1>SISTEMA SAE</h1>
+        </div>
+
+        <div class="auth-body">
+            
+            <!-- FORMULARIO DE LOGIN -->
+            <form id="form-login">
+                <h2 style="margin-bottom: 20px; color: #2c3e50; text-align: center;">Iniciar Sesión</h2>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="login-email" class="form-control" required placeholder="ejemplo@correo.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="login-password" class="form-control" required placeholder="*******">
+                </div>
+                <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Entrar al Sistema</button>
+                <span class="toggle-link" onclick="toggleForms()">¿No tienes cuenta? Regístrate aquí</span>
+            </form>
+
+            <!-- FORMULARIO DE REGISTRO -->
+            <form id="form-registro">
+                <h2 style="margin-bottom: 20px; color: #2c3e50; text-align: center;">Nueva Cuenta</h2>
+                <div class="form-group">
+                    <label>Nombre Completo</label>
+                    <input type="text" id="reg-nombre" class="form-control" required placeholder="Ej: Richard">
+                </div>
+                <div class="form-group">
+                    <label>Correo Electrónico</label>
+                    <input type="email" id="reg-email" class="form-control" required placeholder="Richard@gmail.com">
+                </div>
+                <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" id="reg-password" class="form-control" required placeholder="****">
+                </div>
+                <button type="submit" class="btn" style="background: #28a745;"><i class="fas fa-user-plus"></i> Registrarme</button>
+                <span class="toggle-link" onclick="toggleForms()">¿Ya tienes cuenta? Inicia sesión</span>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre Login y Registro
+        function toggleForms() {
+            const loginForm = document.getElementById('form-login');
+            const regForm = document.getElementById('form-registro');
+            if (loginForm.style.display === 'none') {
+                loginForm.style.display = 'block';
+                regForm.style.display = 'none';
+            } else {
+                loginForm.style.display = 'none';
+                regForm.style.display = 'block';
+            }
+        }
+
+        // LÓGICA DE REGISTRO
+        document.getElementById('form-registro').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const datos = {
+                nombre_completo: document.getElementById('reg-nombre').value,
+                email: document.getElementById('reg-email').value,
+                password: document.getElementById('reg-password').value
+            };
+
+            try {
+                const response = await fetch('/api/auth/registro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    alert(data.mensaje);
+                    toggleForms(); // Volver al login
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) { alert('Error de conexión al servidor'); }
+        });
+
+        // LÓGICA DE LOGIN
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const datos = {
+                email: document.getElementById('login-email').value,
+                password: document.getElementById('login-password').value
+            };
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // ¡ÉXITO! Guardamos los datos del usuario en el navegador
+                    localStorage.setItem('usuario_sae', JSON.stringify(data.usuario));
+                    // Redirigimos al sistema principal
+                    window.location.href = '/'; 
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            } catch (error) { alert('Error de conexión al servidor'); }
+        });
+    </script>
+</body>
+</html>

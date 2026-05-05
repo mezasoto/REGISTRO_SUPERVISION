@@ -1,0 +1,49 @@
+/* =========================================
+   SISTEMA SAE - VARIABLES Y RESET GLOBAL
+   Archivo: variables.css
+   ========================================= */
+
+:root {
+    /* Paleta de Colores Refinada */
+    --primary-bg: #1a252f;      /* Fondo oscuro del Sidebar */
+    --header-bg: #ffffff;       /* Fondo del header superior */
+    --content-bg: #f4f7f6;      /* Fondo del área de trabajo (gris muy claro) */
+    
+    /* Textos */
+    --text-sidebar: #ecf0f1;    
+    --text-muted: #95a5a6;       
+    --text-dark: #2c3e50;        
+    
+    /* Colores de Acción (Acentos) */
+    --accent-success: #28a745;   /* Verde para Guardar/Nuevo */
+    --accent-warning: #ffc107;   /* Amarillo Editar */
+    --accent-danger: #dc3545;    /* Rojo Eliminar */
+    --accent-active: #0056b3;    /* Azul para selección activa */
+    --accent-info: #17a2b8;
+
+    /* Espaciados y Geometría */
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --border-radius-sm: 5px;
+    --border-radius-md: 8px;
+    
+    /* Sombras (Neumorfismo suave) */
+    --shadow-sm: 0 2px 5px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.08);
+}
+
+/* Reset Global */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--content-bg);
+    color: var(--text-dark);
+    display: flex;
+    min-height: 100vh;
+}
